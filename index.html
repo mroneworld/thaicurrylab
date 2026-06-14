@@ -644,6 +644,81 @@ footer ul a:hover { color: var(--gold-light); }
   </div>
 </section>
 
+<!-- CONTACT -->
+<section style="background:#1B4332; padding:5rem 8vw;">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+    <div>
+      <span style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#C9A84C;display:block;margin-bottom:0.8rem;">Get in Touch</span>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:#F7F3EC;line-height:1.15;margin-bottom:1.2rem;">Questions?<br>We'd Love to Hear from You.</h2>
+      <p style="font-size:0.95rem;color:rgba(247,243,236,0.65);line-height:1.8;margin-bottom:2rem;">Whether you're curious about our kits, interested in corporate gifting, or want to know more about our Thai farming partners — we're here.</p>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <div style="width:36px;height:36px;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span style="font-size:0.85rem;color:rgba(247,243,236,0.7);">info@thaicurrylab.com</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <div style="width:36px;height:36px;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span style="font-size:0.85rem;color:rgba(247,243,236,0.7);">Ships to Australia from Thailand</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <form action="https://formspree.io/f/maqzadkw" method="POST" id="contact-form">
+        <div style="margin-bottom:1rem;">
+          <input type="text" name="name" placeholder="Your Name" required
+            style="width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(201,168,76,0.3);color:#F7F3EC;font-family:'Inter',sans-serif;font-size:0.88rem;padding:0.75rem 1rem;outline:none;transition:border-color 0.2s;">
+        </div>
+        <div style="margin-bottom:1rem;">
+          <input type="email" name="email" placeholder="Your Email" required
+            style="width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(201,168,76,0.3);color:#F7F3EC;font-family:'Inter',sans-serif;font-size:0.88rem;padding:0.75rem 1rem;outline:none;transition:border-color 0.2s;">
+        </div>
+        <div style="margin-bottom:1rem;">
+          <select name="subject"
+            style="width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(201,168,76,0.3);color:rgba(247,243,236,0.7);font-family:'Inter',sans-serif;font-size:0.88rem;padding:0.75rem 1rem;outline:none;">
+            <option value="">Select a Topic</option>
+            <option value="order">Order Enquiry</option>
+            <option value="gifting">Corporate Gifting</option>
+            <option value="wholesale">Wholesale / Retail</option>
+            <option value="farmers">Our Farming Partners</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom:1.5rem;">
+          <textarea name="message" placeholder="Your Message" rows="4" required
+            style="width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(201,168,76,0.3);color:#F7F3EC;font-family:'Inter',sans-serif;font-size:0.88rem;padding:0.75rem 1rem;outline:none;resize:vertical;"></textarea>
+        </div>
+        <button type="submit"
+          style="width:100%;background:#C9A84C;color:#2D1B0E;border:none;padding:0.85rem;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;">
+          Send Message
+        </button>
+        <div id="form-status" style="margin-top:1rem;font-size:0.85rem;text-align:center;"></div>
+      </form>
+      <script>
+        const form = document.getElementById('contact-form');
+        const status = document.getElementById('form-status');
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const data = new FormData(form);
+          const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+          if (res.ok) {
+            status.style.color = '#C9A84C';
+            status.textContent = '✓ Message sent! We\'ll get back to you shortly.';
+            form.reset();
+          } else {
+            status.style.color = '#e74c3c';
+            status.textContent = 'Oops! Something went wrong. Please try again.';
+          }
+        });
+      </script>
+    </div>
+  </div>
+</section>
+
 <!-- NEWSLETTER -->
 <section style="background:#F7F3EC; padding:5rem 8vw; text-align:center;">
   <span style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#2D6A4F;display:block;margin-bottom:0.8rem;">Stay Connected</span>
