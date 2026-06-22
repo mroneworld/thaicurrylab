@@ -727,15 +727,38 @@ footer ul a:hover { color: var(--gold-light); }
       <script>
         const form = document.getElementById('contact-form');
         const status = document.getElementById('form-status');
+        const ZAPIER_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/28017714/42bpcw0/';
+
         form.addEventListener('submit', async function(e) {
           e.preventDefault();
           const data = new FormData(form);
-          const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
-          if (res.ok) {
-            status.style.color = '#C9A84C';
-            status.textContent = '✓ Message sent! We\'ll get back to you shortly.';
-            form.reset();
-          } else {
+          const payload = Object.fromEntries(data.entries());
+          payload.date = new Date().toISOString();
+
+          // Send to Formspree (email notification) and Zapier (Airtable log) in parallel
+          const formspreeReq = fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          const zapierReq = fetch(ZAPIER_WEBHOOK, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          try {
+            const [formspreeRes] = await Promise.all([formspreeReq, zapierReq]);
+            if (formspreeRes.ok) {
+              status.style.color = '#C9A84C';
+              status.textContent = '✓ Message sent! We\\'ll get back to you shortly.';
+              form.reset();
+            } else {
+              status.style.color = '#e74c3c';
+              status.textContent = 'Oops! Something went wrong. Please try again.';
+            }
+          } catch (err) {
             status.style.color = '#e74c3c';
             status.textContent = 'Oops! Something went wrong. Please try again.';
           }
